@@ -2,8 +2,8 @@ package service
 
 import (
 	"database/sql"
-	"os"
 	_ "github.com/lib/pq"
+	"os"
 )
 
 var DB *sql.DB
@@ -14,16 +14,19 @@ func InitPostgres() error {
 	if err != nil {
 		return err
 	}
-	
+
 	if err := DB.Ping(); err != nil {
 		return err
 	}
-	
+
 	return nil
 }
 
 func ClosePostgres() {
 	if DB != nil {
-		DB.Close()
+		err := DB.Close()
+		if err != nil {
+			return
+		}
 	}
-} 
+}

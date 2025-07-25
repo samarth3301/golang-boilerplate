@@ -2,9 +2,9 @@ package server
 
 import (
 	"fmt"
-	"os"
-	"go-template/internal/routes"
 	"github.com/gin-gonic/gin"
+	"go-template/internal/routes"
+	"os"
 )
 
 type Server struct {
@@ -29,4 +29,4 @@ func (s *Server) Start() error {
 
 	// Start server
 	return s.router.Run(fmt.Sprintf(":%s", port))
-} 
+}

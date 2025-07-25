@@ -24,8 +24,3 @@ func PingHandler(c *gin.Context) {
 }
 
 // NotFoundHandler handles 404 errors
-func NotFoundHandler(c *gin.Context) {
-	c.JSON(http.StatusNotFound, gin.H{
-		"error": "Resource not found",
-	})
-}

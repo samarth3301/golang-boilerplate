@@ -11,12 +11,15 @@ func InitRedis() error {
 	RedisClient = redis.NewClient(&redis.Options{
 		Addr: os.Getenv("REDIS_URL"),
 	})
-	
+
 	return nil
 }
 
 func CloseRedis() {
 	if RedisClient != nil {
-		RedisClient.Close()
+		err := RedisClient.Close()
+		if err != nil {
+			return
+		}
 	}
-} 
+}

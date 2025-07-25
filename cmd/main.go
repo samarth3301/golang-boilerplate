@@ -1,10 +1,10 @@
 package main
 
 import (
-	"log"
+	"github.com/joho/godotenv"
 	"go-template/internal/server"
 	"go-template/internal/service"
-	"github.com/joho/godotenv"
+	"log"
 )
 
 func main() {
@@ -24,4 +24,4 @@ func main() {
 	if err := srv.Start(); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
-} 
+}

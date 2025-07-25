@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"time"
-	"go.uber.org/zap"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
+	"time"
 )
 
 var logger *zap.Logger
@@ -34,4 +34,4 @@ func LoggingMiddleware() gin.HandlerFunc {
 			zap.Duration("latency", latency),
 		)
 	}
-} 
+}
