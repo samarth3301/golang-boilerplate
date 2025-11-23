@@ -6,9 +6,12 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=go-template
+      - POSTGRES_DB=golang-boilerplate
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
 
   redis:
     image: redis:latest
@@ -16,10 +19,15 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    networks:
+      - app-network
 
   
 
 volumes:
   postgres_data:
   redis_data:
-   
+
+networks:
+  app-network:
+    driver: bridge
