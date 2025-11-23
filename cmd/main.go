@@ -1,16 +1,19 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
-	"go-template/internal/server"
-	"go-template/internal/service"
+	"golang-boilerplate/main/config"
+	"golang-boilerplate/main/server"
+	"golang-boilerplate/main/service"
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func main() {
-	// Load .env file
-	if err := godotenv.Load(); err != nil {
-		log.Printf("Warning: .env file not found")
+	// Load configuration
+	if err := config.LoadConfig(); err != nil {
+		log.Fatalf("Failed to load config: %v", err)
 	}
 
 	// Initialize all services
@@ -21,7 +24,21 @@ func main() {
 
 	// Create and start server
 	srv := server.NewServer()
-	if err := srv.Start(); err != nil {
-		log.Fatalf("Failed to start server: %v", err)
+	go func() {
+		if err := srv.Start(); err != nil {
+			log.Fatalf("Failed to start server: %v", err)
+		}
+	}()
+
+	// Wait for interrupt signal to gracefully shutdown the server
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+	log.Println("Shutting down server...")
+
+	if err := srv.Shutdown(); err != nil {
+		log.Fatalf("Server forced to shutdown: %v", err)
 	}
+
+	log.Println("Server exited")
 }
