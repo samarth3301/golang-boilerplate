@@ -80,26 +80,31 @@ A production-ready Go backend boilerplate with enterprise-grade features, optimi
 - PostgreSQL (for local development)
 - Redis (for local development)
 
-### Local Development
+### Development Setup
 
-1. **Clone and setup**:
+1. **Install development tools**:
+   ```bash
+   ./scripts/setup-dev.sh
+   ```
+
+2. **Clone and setup**:
    ```bash
    git clone <repository>
    cd golang-boilerplate
    cp config.yaml.example config.yaml
    ```
 
-2. **Start dependencies**:
+3. **Start dependencies**:
    ```bash
    make dev-deps
    ```
 
-3. **Run the application**:
+4. **Run the application**:
    ```bash
    make run
    ```
 
-4. **Run tests**:
+5. **Run tests**:
    ```bash
    make test
    ```
@@ -202,24 +207,35 @@ Structured logs include request IDs, latency, and user context.
 make help          # Show all available commands
 make build         # Build the application
 make run           # Run locally
+make watch         # Live reload on file changes (like nodemon)
 make test          # Run tests
 make docker-dev    # Start Docker development environment
 make deploy        # Deploy to production
 make clean         # Clean build artifacts
+make lint          # Run linter
+make fmt           # Format code
 ```
 
-### Testing
+### Live Reloading
 
+For development with automatic restarts on file changes (similar to nodemon):
+
+**Prerequisites:**
 ```bash
-# Unit tests
-go test ./...
-
-# Integration tests
-go test -tags=integration ./main/tests/...
-
-# With coverage
-go test -cover ./...
+# Install reflex for live reloading
+go install github.com/cespare/reflex@latest
 ```
+
+**Usage:**
+```bash
+# Using make command (recommended)
+make watch
+
+# Or directly with reflex
+reflex -s -r '\.go$$' -- go run ./cmd/main.go
+```
+
+This will automatically restart your Go application whenever you save changes to `.go` files.
 
 ## Deployment
 

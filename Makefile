@@ -1,4 +1,23 @@
-.PHONY: build run test clean docker-build docker-run dev
+.PHONY: build run test clean docker-build docker-run dev watch help
+
+# Show help
+help:
+	@echo "Available commands:"
+	@echo "  build         - Build the application"
+	@echo "  run           - Run the application"
+	@echo "  watch         - Live reload on file changes (like nodemon)"
+	@echo "  test          - Run all tests"
+	@echo "  test-unit     - Run unit tests"
+	@echo "  test-integration - Run integration tests"
+	@echo "  clean         - Clean build artifacts"
+	@echo "  docker-build  - Build Docker image"
+	@echo "  docker-run    - Run Docker container"
+	@echo "  dev           - Run with docker-compose for development"
+	@echo "  prod          - Run production setup"
+	@echo "  lint          - Run linter"
+	@echo "  fmt           - Format code"
+	@echo "  tidy          - Tidy modules"
+	@echo "  help          - Show this help message"
 
 # Build the application
 build:
@@ -7,6 +26,10 @@ build:
 # Run the application
 run:
 	go run ./cmd/main.go
+
+# Watch for file changes and restart (like nodemon)
+watch:
+	PATH=$$PATH:/Users/samarthhhh/go/bin reflex -s -r '\.go$$' -- go run ./cmd/main.go
 
 # Run tests
 test:

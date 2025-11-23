@@ -1,0 +1,5 @@
+# Reflex configuration for live reloading
+# This file configures reflex to watch for Go file changes and restart the application
+
+# Watch .go files and run the application
+-s -r '\.go$$' -- go run ./cmd/main.go
