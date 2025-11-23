@@ -24,7 +24,7 @@ WORKDIR /app
 COPY --from=builder /app/main .
 
 # Copy any additional necessary files
-COPY .env .
+COPY config.yaml .
 
 # Expose the port
 EXPOSE 8080
